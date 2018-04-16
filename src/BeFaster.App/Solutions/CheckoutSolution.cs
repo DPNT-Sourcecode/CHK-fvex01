@@ -13,7 +13,8 @@ namespace BeFaster.App.Solutions
         {
             var chars = skus
                 .ToCharArray()
-                .GroupBy(c => c, (key, g) => new ItemOrder() { Sku = key, Count = g.Count() });
+                .GroupBy(c => c, (key, g) => new ItemOrder() { Sku = key, Count = g.Count() })
+                .ToList();
 
             if(chars.Any(c => !_allowedCharacters.Contains(c.Sku)))
             {
@@ -25,7 +26,8 @@ namespace BeFaster.App.Solutions
             {
                 var numberOfFreeBItems = numberOfEItems / 2;
                 var currentBCount = chars.FirstOrDefault(g => g.Sku.Equals('B')).Count;
-                chars.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, currentBCount - numberOfFreeBItems);
+                var DiscountedBItems = currentBCount - numberOfFreeBItems;
+                chars.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
             }
 
             var total = 0;
