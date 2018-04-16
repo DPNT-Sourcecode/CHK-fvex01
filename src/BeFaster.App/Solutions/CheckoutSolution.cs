@@ -25,9 +25,12 @@ namespace BeFaster.App.Solutions
             if(numberOfEItems > 0)
             {
                 var numberOfFreeBItems = numberOfEItems / 2;
-                var currentBCount = chars.FirstOrDefault(g => g.Sku.Equals('B')).Count;
-                var DiscountedBItems = currentBCount - numberOfFreeBItems;
-                chars.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
+                var currentBCount = chars.FirstOrDefault(g => g.Sku.Equals('B'))?.Count ?? 0;
+                if(currentBCount > 0)
+                {
+                    var DiscountedBItems = currentBCount - numberOfFreeBItems;
+                    chars.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
+                }
             }
 
             var total = 0;
