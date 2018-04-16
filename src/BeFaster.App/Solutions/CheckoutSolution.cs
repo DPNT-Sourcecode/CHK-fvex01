@@ -9,7 +9,6 @@ namespace BeFaster.App.Solutions
         public static int Checkout(string skus)
         {
             var chars = skus.ToCharArray().GroupBy(c => c, (key, g) => new { sku = key, count = g.Count() });
-            var priceDictionary = GetPrices();
             var total = 0;
             foreach(var group in chars)
             {
@@ -21,10 +20,37 @@ namespace BeFaster.App.Solutions
 
         private static int SumItemPrices(char sku, int count)
         {
-            throw new NotImplementedException();
+            var priceDictionary = GetPrices();
+            return count * priceDictionary[sku] - Discount(sku, count);
         }
 
-        private static object GetPrices()
+        private static int Discount(char sku, int count)
+        {
+            switch (sku)
+            {
+                case 'A':
+                    return 20 * Math.Floor(count % 3);
+                    break;
+                case 'B':
+                    return 20;
+                    break;
+
+            }
+
+            int GetADiscount()
+            {
+                decimal d = count % 3;
+                return (int)Math.Floor(d) * 20;
+            }
+
+            int GetBDiscount()
+            {
+                decimal d = count % 2;
+                return (int)Math.Floor(d) * 15;
+            }
+        }
+
+        private static Dictionary<char, int> GetPrices()
         {
             var prices = new Dictionary<char, int>();
 
