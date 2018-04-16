@@ -17,6 +17,9 @@ namespace BeFaster.App.Tests.Solutions
         [TestCase("AAAAAAAA", ExpectedResult = 330)]
         [TestCase("EEEEBB", ExpectedResult = 160)]
         [TestCase("EEEE", ExpectedResult = 160)]
+        [TestCase("F", ExpectedResult = 10)]
+        [TestCase("FF", ExpectedResult = 20)]
+        [TestCase("FFF", ExpectedResult = 20)]
         public int ComputeCheckoutTotal(string skus)
         {
             return CheckoutSolution.Checkout(skus);

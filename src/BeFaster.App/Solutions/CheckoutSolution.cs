@@ -7,7 +7,7 @@ namespace BeFaster.App.Solutions
 {
     public static class CheckoutSolution
     {
-        private static List<char> _allowedCharacters = new List<char> { 'A', 'B', 'C', 'D', 'E' };
+        private static List<char> _allowedCharacters = new List<char> { 'A', 'B', 'C', 'D', 'E', 'F' };
         
         public static int Checkout(string skus)
         {
@@ -58,6 +58,8 @@ namespace BeFaster.App.Solutions
                     return GetADiscount();
                 case 'B':
                     return GetBDiscount();
+                case 'F':
+                    return GetFDiscount();
                 default:
                     return 0;
             }
@@ -76,8 +78,14 @@ namespace BeFaster.App.Solutions
 
             int GetBDiscount()
             {
-                double d = countDouble / 2;
-                return (int)Math.Floor(d) * 15;
+                double dividedBy2 = countDouble / 2;
+                return (int)Math.Floor(dividedBy2) * 15;
+            }
+
+            int GetFDiscount()
+            {
+                double dividedBy3 = countDouble / 3;
+                return (int)Math.Floor(dividedBy3) * 10;
             }
         }
 
@@ -90,6 +98,7 @@ namespace BeFaster.App.Solutions
             prices.Add('C', 20);
             prices.Add('D', 15);
             prices.Add('E', 40);
+            prices.Add('F', 10);
 
             return prices;
         }
