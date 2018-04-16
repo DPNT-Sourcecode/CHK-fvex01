@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Models\ItemOrder.cs" />
     <Compile Include="Models\ShoppingBasket.cs" />
+    <Compile Include="Models\ShoppingBundle.cs" />
     <Compile Include="SendCommandToServer.cs" />
     <Compile Include="Solutions\CheckoutSolution.cs" />
     <Compile Include="Solutions\FizzBuzzSolution.cs" />
