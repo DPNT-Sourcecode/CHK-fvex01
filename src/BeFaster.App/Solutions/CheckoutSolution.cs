@@ -6,11 +6,19 @@ namespace BeFaster.App.Solutions
 {
     public static class CheckoutSolution
     {
-        private static char[] _allowedCharacters = new char[] { 'A', 'B', 'C', 'D' };
+        private static List<char> _allowedCharacters = new List<char> { 'A', 'B', 'C', 'D' };
         
         public static int Checkout(string skus)
         {
-            var chars = skus.ToCharArray().GroupBy(c => c, (key, g) => new { sku = key, count = g.Count() });
+            var chars = skus
+                .ToCharArray()
+                .GroupBy(c => c, (key, g) => new { sku = key, count = g.Count() });
+
+            if(chars.Any(c => !_allowedCharacters.Contains(c.sku)))
+            {
+                return -1;
+            }
+
             var total = 0;
             foreach(var group in chars)
             {
