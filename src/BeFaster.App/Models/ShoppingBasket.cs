@@ -55,6 +55,10 @@ namespace BeFaster.App.Models
                         {
                             price += pricePerBundle;
                         }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
             }
