@@ -1,15 +1,25 @@
 ﻿using BeFaster.App.Solutions;
-using NUnit.Framework;
+using System;
+using Xunit;
 
 namespace BeFaster.App.Tests.Solutions
 {
-    [TestFixture]
-    public class SumSolutionTest
+    public class SumSolutionTest : IDisposable
     {
-        [TestCase(1, 1, ExpectedResult = 2)]
-        public int ComputeSum(int x, int y)
+        public SumSolutionTest()
         {
-            return SumSolution.Sum(x, y);
+
+        }
+        public void Dispose()
+        {
+            
+        }
+
+        [Fact]
+        public void Sum_TwoPositiveIntegers_Correct()
+        {
+            var sum = SumSolution.Sum(2, 2);
+            Assert.Equal(4, sum);
         }
     }
 }
