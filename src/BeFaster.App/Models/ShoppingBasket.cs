@@ -96,6 +96,22 @@ namespace BeFaster.App.Models
                 double dividedBy3 = countDouble / 3;
                 return (int)Math.Floor(dividedBy3) * 10;
             }
+
+            int GetHDiscount()
+            {
+                var dividedBy10 = countDouble / 10.0;
+                var discount = (int)Math.Floor(dividedBy10) * 20;
+                var remaining = countDouble - (int)Math.Floor(dividedBy10) * 10;
+
+                var dividedBy5 = countDouble / 5.0;
+                var discount = (int)Math.Floor(dividedBy5) * 50;
+                var remaining = countDouble - (int)Math.Floor(dividedBy5) * 5;
+
+                var dividedBy3 = remaining / 3.0;
+                discount += (int)Math.Floor(dividedBy3) * 20;
+
+                return discount;
+            }
         }
 
         private static Dictionary<char, int> GetPrices()
@@ -108,26 +124,26 @@ namespace BeFaster.App.Models
             prices.Add('D', 15);
             prices.Add('E', 40);
             prices.Add('F', 10);
-            prices.Add('G', 10);
+            prices.Add('G', 20);
             prices.Add('H', 10);
-            prices.Add('I', 10);
-            prices.Add('J', 10);
-            prices.Add('K', 10);
-            prices.Add('L', 10);
-            prices.Add('M', 10);
-            prices.Add('N', 10);
+            prices.Add('I', 35);
+            prices.Add('J', 60);
+            prices.Add('K', 80);
+            prices.Add('L', 90);
+            prices.Add('M', 15);
+            prices.Add('N', 40);
             prices.Add('O', 10);
-            prices.Add('P', 10);
-            prices.Add('Q', 10);
-            prices.Add('R', 10);
-            prices.Add('S', 10);
-            prices.Add('T', 10);
-            prices.Add('U', 10);
-            prices.Add('V', 10);
-            prices.Add('W', 10);
-            prices.Add('X', 10);
+            prices.Add('P', 50);
+            prices.Add('Q', 30);
+            prices.Add('R', 50);
+            prices.Add('S', 30);
+            prices.Add('T', 20);
+            prices.Add('U', 40);
+            prices.Add('V', 50);
+            prices.Add('W', 20);
+            prices.Add('X', 90);
             prices.Add('Y', 10);
-            prices.Add('Z', 10);
+            prices.Add('Z', 50);
 
             return prices;
         }
