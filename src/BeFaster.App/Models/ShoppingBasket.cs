@@ -18,20 +18,11 @@ namespace BeFaster.App.Models
 
         public int CalculateTotalPrice()
         {
-            var numberOfEItems = basket.FirstOrDefault(g => g.Sku.Equals('E'))?.Count ?? 0;
-            if (numberOfEItems > 0)
-            {
-                var numberOfFreeBItems = numberOfEItems / 2;
-                var currentBCount = basket.FirstOrDefault(g => g.Sku.Equals('B'))?.Count ?? 0;
-                if (currentBCount > 0)
-                {
-                    var DiscountedBItems = currentBCount - numberOfFreeBItems;
-                    basket.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
-                }
-            }
+            RemoveFreeItems();
 
             var total = 0;
-            foreach (var group in basket)
+
+            foreach (var group in Orders)
             {
                 total += SumItemPrices(group.Sku, group.Count);
             }
@@ -39,8 +30,84 @@ namespace BeFaster.App.Models
             return total;
         }
 
+        private void RemoveFreeItems()
+        {
+            var numberOfEItems = Orders.FirstOrDefault(g => g.Sku.Equals('E'))?.Count ?? 0;
+            if (numberOfEItems > 0)
+            {
+                var numberOfFreeBItems = numberOfEItems / 2;
+                var currentBCount = Orders.FirstOrDefault(g => g.Sku.Equals('B'))?.Count ?? 0;
+                if (currentBCount > 0)
+                {
+                    var DiscountedBItems = currentBCount - numberOfFreeBItems;
+                    Orders.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
+                }
+            }
+        }
+
         public List<ItemOrder> Orders { get; set; }
 
-        public bool IsValid => Orders.All(c => _allowedCharacters.Contains(c.Sku))
+        public bool IsValid => Orders.All(c => _allowedCharacters.Contains(c.Sku));
+
+        private static int SumItemPrices(char sku, int count)
+        {
+            var priceDictionary = GetPrices();
+            var discount = CalculateDiscount(sku, count);
+            return count * priceDictionary[sku] - discount;
+        }
+
+        private static int CalculateDiscount(char sku, int count)
+        {
+            var countDouble = (double)count;
+            switch (sku)
+            {
+                case 'A':
+                    return GetADiscount();
+                case 'B':
+                    return GetBDiscount();
+                case 'F':
+                    return GetFDiscount();
+                default:
+                    return 0;
+            }
+
+            int GetADiscount()
+            {
+                var dividedBy5 = countDouble / 5.0;
+                var discount = (int)Math.Floor(dividedBy5) * 50;
+                var remaining = countDouble - (int)Math.Floor(dividedBy5) * 5;
+
+                var dividedBy3 = remaining / 3.0;
+                discount += (int)Math.Floor(dividedBy3) * 20;
+
+                return discount;
+            }
+
+            int GetBDiscount()
+            {
+                double dividedBy2 = countDouble / 2;
+                return (int)Math.Floor(dividedBy2) * 15;
+            }
+
+            int GetFDiscount()
+            {
+                double dividedBy3 = countDouble / 3;
+                return (int)Math.Floor(dividedBy3) * 10;
+            }
+        }
+
+        private static Dictionary<char, int> GetPrices()
+        {
+            var prices = new Dictionary<char, int>();
+
+            prices.Add('A', 50);
+            prices.Add('B', 30);
+            prices.Add('C', 20);
+            prices.Add('D', 15);
+            prices.Add('E', 40);
+            prices.Add('F', 10);
+
+            return prices;
+        }
     }
 }
