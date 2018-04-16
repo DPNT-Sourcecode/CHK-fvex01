@@ -70,7 +70,17 @@ namespace BeFaster.App.Models
                 case 'F':
                     return GetDiscount(3, 10);
                 case 'H':
-                    return Get2Discounts(3, 10);
+                    return Get2Discounts(10, 20, 5, 5);
+                case 'K':
+                    return GetDiscount(2, 10);
+                case 'P':
+                    return GetDiscount(5, 50);
+                case 'Q':
+                    return GetDiscount(3, 10);
+                case 'U':
+                    return GetDiscount(4, 40);
+                case 'V':
+                    return Get2Discounts(3, 20, 2, 10);
                 default:
                     return 0;
             }
