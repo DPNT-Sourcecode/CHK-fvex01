@@ -27,6 +27,7 @@ namespace BeFaster.App.Solutions
 
         private static int Discount(char sku, int count)
         {
+            var countDouble = (double)count;
             switch (sku)
             {
                 case 'A':
@@ -39,13 +40,13 @@ namespace BeFaster.App.Solutions
 
             int GetADiscount()
             {
-                decimal d = count % 3;
+                double d = countDouble % 3.0;
                 return (int)Math.Floor(d) * 20;
             }
 
             int GetBDiscount()
             {
-                decimal d = count % 2;
+                double d = countDouble % 2;
                 return (int)Math.Floor(d) * 15;
             }
         }
