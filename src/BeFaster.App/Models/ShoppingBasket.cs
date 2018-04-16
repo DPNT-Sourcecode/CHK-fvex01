@@ -64,51 +64,31 @@ namespace BeFaster.App.Models
             switch (sku)
             {
                 case 'A':
-                    return GetADiscount();
+                    return Get2Discounts(5, 50, 3, 20);
                 case 'B':
-                    return GetBDiscount();
+                    return GetDiscount(2, 15);
                 case 'F':
-                    return GetFDiscount();
+                    return GetDiscount(3, 10);
+                case 'H':
+                    return Get2Discounts(3, 10);
                 default:
                     return 0;
             }
 
-            int GetADiscount()
+            int GetDiscount(int toQualify, int discount)
             {
-                var dividedBy5 = countDouble / 5.0;
-                var discount = (int)Math.Floor(dividedBy5) * 50;
-                var remaining = countDouble - (int)Math.Floor(dividedBy5) * 5;
-
-                var dividedBy3 = remaining / 3.0;
-                discount += (int)Math.Floor(dividedBy3) * 20;
-
-                return discount;
+                double divided = countDouble / toQualify;
+                return (int)Math.Floor(divided) * discount;
             }
 
-            int GetBDiscount()
+            int Get2Discounts(int toQualify, int discount1, int toQualify2, int discount2)
             {
-                double dividedBy2 = countDouble / 2;
-                return (int)Math.Floor(dividedBy2) * 15;
-            }
+                var dividedFirst = countDouble / toQualify;
+                var discount = (int)Math.Floor(dividedFirst) * discount1;
+                var remaining = countDouble - (int)Math.Floor(dividedFirst) * toQualify;
 
-            int GetFDiscount()
-            {
-                double dividedBy3 = countDouble / 3;
-                return (int)Math.Floor(dividedBy3) * 10;
-            }
-
-            int GetHDiscount()
-            {
-                var dividedBy10 = countDouble / 10.0;
-                var discount = (int)Math.Floor(dividedBy10) * 20;
-                var remaining = countDouble - (int)Math.Floor(dividedBy10) * 10;
-
-                var dividedBy5 = countDouble / 5.0;
-                var discount = (int)Math.Floor(dividedBy5) * 50;
-                var remaining = countDouble - (int)Math.Floor(dividedBy5) * 5;
-
-                var dividedBy3 = remaining / 3.0;
-                discount += (int)Math.Floor(dividedBy3) * 20;
+                var dividedSecond = remaining / toQualify2;
+                discount += (int)Math.Floor(dividedSecond) * discount2;
 
                 return discount;
             }
