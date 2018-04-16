@@ -9,7 +9,7 @@ namespace BeFaster.App.Tests.Solutions
             [TestCase("John", ExpectedResult = "Hello, John!")]
             [TestCase("Mary", ExpectedResult = "Hello, Mary!")]
             [TestCase(" ", ExpectedResult = "Hello,  !")]
-        public string ComputeSum(string x)
+        public string ComputeGreeting(string x)
             {
                 return HelloSolution.Hello(x);
             }

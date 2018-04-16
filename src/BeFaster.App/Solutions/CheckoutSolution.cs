@@ -6,6 +6,8 @@ namespace BeFaster.App.Solutions
 {
     public static class CheckoutSolution
     {
+        private static char[] _allowedCharacters = new char[] { 'A', 'B', 'C', 'D' };
+        
         public static int Checkout(string skus)
         {
             var chars = skus.ToCharArray().GroupBy(c => c, (key, g) => new { sku = key, count = g.Count() });
