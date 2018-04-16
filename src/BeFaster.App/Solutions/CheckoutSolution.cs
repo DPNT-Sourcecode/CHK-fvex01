@@ -31,11 +31,11 @@ namespace BeFaster.App.Solutions
         private static int SumItemPrices(char sku, int count)
         {
             var priceDictionary = GetPrices();
-            var discount = Discount(sku, count);
+            var discount = CalculateDiscount(sku, count);
             return count * priceDictionary[sku] - discount;
         }
 
-        private static int Discount(char sku, int count)
+        private static int CalculateDiscount(char sku, int count)
         {
             var countDouble = (double)count;
             switch (sku)
@@ -75,6 +75,7 @@ namespace BeFaster.App.Solutions
             prices.Add('B', 30);
             prices.Add('C', 20);
             prices.Add('D', 15);
+            prices.Add('E', 40);
 
             return prices;
         }
