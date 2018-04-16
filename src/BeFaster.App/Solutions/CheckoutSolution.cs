@@ -40,13 +40,13 @@ namespace BeFaster.App.Solutions
 
             int GetADiscount()
             {
-                double d = countDouble % 3.0;
+                var d = countDouble / 3.0;
                 return (int)Math.Floor(d) * 20;
             }
 
             int GetBDiscount()
             {
-                double d = countDouble % 2;
+                double d = countDouble / 2;
                 return (int)Math.Floor(d) * 15;
             }
         }
