@@ -6,9 +6,10 @@ namespace BeFaster.App.Tests.Solutions
     [TestFixture]
     public class CheckoutSolutionTests
     {
-        [TestCase("John", ExpectedResult = "Hello, John!")]
-        [TestCase("Mary", ExpectedResult = "Hello, Mary!")]
-        [TestCase(" ", ExpectedResult = "Hello,  !")]
+        [TestCase("A", ExpectedResult = "50")]
+        //[TestCase("B", ExpectedResult = "Hello, Mary!")]
+        //[TestCase("C", ExpectedResult = "Hello,  !")]
+        //[TestCase("D", ExpectedResult = "Hello,  !")]
         public int ComputeSum(string skus)
         {
             return CheckoutSolution.Checkout(skus);

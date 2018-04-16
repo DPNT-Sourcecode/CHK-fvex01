@@ -8,10 +8,20 @@ namespace BeFaster.App.Solutions
     {
         public static int Checkout(string skus)
         {
-            var chars = skus.ToCharArray().GroupBy(c => c);
-
+            var chars = skus.ToCharArray().GroupBy(c => c, (key, g) => new { sku = key, count = g.Count() });
             var priceDictionary = GetPrices();
+            var total = 0;
+            foreach(var group in chars)
+            {
+                total += SumItemPrices(group.sku, group.count);
+            }
 
+            return 0;
+        }
+
+        private static int SumItemPrices(char sku, int count)
+        {
+            throw new NotImplementedException();
         }
 
         private static object GetPrices()
