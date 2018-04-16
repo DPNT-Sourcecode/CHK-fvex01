@@ -46,7 +46,8 @@ namespace BeFaster.App.Models
             {
                 if(Orders.FirstOrDefault(o => o.Sku.Equals(sku)) is ItemOrder order)
                 {
-                    while(removed + Orders.Where(o => bundleSkuArray.Contains(o.Sku)).Select(o => o.Count).Sum() >= toQualify)
+                    while(removed + Orders.Where(o => bundleSkuArray.Contains(o.Sku)).Select(o => o.Count).Sum() >= toQualify
+                        && order.Count > 0)
                     {
                         var amountToRemove = Math.Min(toQualify, order.Count);
                         order.Count -= amountToRemove;
@@ -54,10 +55,6 @@ namespace BeFaster.App.Models
                         if(removed == 0)
                         {
                             price += pricePerBundle;
-                        }
-                        else
-                        {
-                            break;
                         }
                     }
                 }
