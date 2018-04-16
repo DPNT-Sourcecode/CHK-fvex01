@@ -49,7 +49,7 @@ namespace BeFaster.App.Models
 
         public List<ItemOrder> Orders { get; set; }
 
-        public bool IsValid => Orders.All(c => _allowedCharacters.Contains(c.Sku));
+        public bool IsValid => Orders.All(c => c.Sku > 64 && c.Sku < 91);
 
         private static int SumItemPrices(char sku, int count)
         {
@@ -108,6 +108,26 @@ namespace BeFaster.App.Models
             prices.Add('D', 15);
             prices.Add('E', 40);
             prices.Add('F', 10);
+            prices.Add('G', 10);
+            prices.Add('H', 10);
+            prices.Add('I', 10);
+            prices.Add('J', 10);
+            prices.Add('K', 10);
+            prices.Add('L', 10);
+            prices.Add('M', 10);
+            prices.Add('N', 10);
+            prices.Add('O', 10);
+            prices.Add('P', 10);
+            prices.Add('Q', 10);
+            prices.Add('R', 10);
+            prices.Add('S', 10);
+            prices.Add('T', 10);
+            prices.Add('U', 10);
+            prices.Add('V', 10);
+            prices.Add('W', 10);
+            prices.Add('X', 10);
+            prices.Add('Y', 10);
+            prices.Add('Z', 10);
 
             return prices;
         }
