@@ -19,8 +19,10 @@ namespace BeFaster.App.Solutions
                 return -1;
             }
 
-            var total = 0;
-            foreach(var group in chars)
+            var EItems = chars.FirstOrDefault(g => g.sku.Equals('E'));
+
+            var total = EItems != null ? SumItemPrices(EItems.sku, EItems.count) : 0;
+            foreach (var group in chars.Where(g => !g.sku.Equals('E')))
             {
                 total += SumItemPrices(group.sku, group.count);
             }
