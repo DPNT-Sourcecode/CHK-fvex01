@@ -51,11 +51,11 @@ namespace BeFaster.App.Models
                     {
                         var amountToRemove = Math.Min(toQualify, order.Count);
                         order.Count -= amountToRemove;
-                        removed = (removed + amountToRemove) % toQualify;
-                        if(removed == 0)
+                        if (removed + amountToRemove >= toQualify)
                         {
                             price += pricePerBundle;
                         }
+                        removed = (removed + amountToRemove) % toQualify;
                     }
                 }
             }
