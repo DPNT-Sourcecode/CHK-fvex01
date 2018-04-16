@@ -49,7 +49,7 @@ namespace BeFaster.App.Models
                     while(removed + Orders.Where(o => bundleSkuArray.Contains(o.Sku)).Select(o => o.Count).Sum() >= toQualify
                         && order.Count > 0)
                     {
-                        var amountToRemove = Math.Min(toQualify, order.Count);
+                        var amountToRemove = Math.Min(toQualify - removed, order.Count);
                         order.Count -= amountToRemove;
                         if (removed + amountToRemove >= toQualify)
                         {
