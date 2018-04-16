@@ -11,30 +11,30 @@ namespace BeFaster.App.Solutions
         
         public static int Checkout(string skus)
         {
-            var chars = skus
+            var basket = skus
                 .ToCharArray()
                 .GroupBy(c => c, (key, g) => new ItemOrder() { Sku = key, Count = g.Count() })
                 .ToList();
 
-            if(chars.Any(c => !_allowedCharacters.Contains(c.Sku)))
+            if(basket.Any(c => !_allowedCharacters.Contains(c.Sku)))
             {
                 return -1;
             }
 
-            var numberOfEItems = chars.FirstOrDefault(g => g.Sku.Equals('E'))?.Count ?? 0;
+            var numberOfEItems = basket.FirstOrDefault(g => g.Sku.Equals('E'))?.Count ?? 0;
             if(numberOfEItems > 0)
             {
                 var numberOfFreeBItems = numberOfEItems / 2;
-                var currentBCount = chars.FirstOrDefault(g => g.Sku.Equals('B'))?.Count ?? 0;
+                var currentBCount = basket.FirstOrDefault(g => g.Sku.Equals('B'))?.Count ?? 0;
                 if(currentBCount > 0)
                 {
                     var DiscountedBItems = currentBCount - numberOfFreeBItems;
-                    chars.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
+                    basket.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
                 }
             }
 
             var total = 0;
-            foreach (var group in chars)
+            foreach (var group in basket)
             {
                 total += SumItemPrices(group.Sku, group.Count);
             }
