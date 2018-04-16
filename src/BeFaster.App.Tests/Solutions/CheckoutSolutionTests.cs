@@ -40,6 +40,19 @@ namespace BeFaster.App.Tests.Solutions
         [TestCase("V", ExpectedResult = 50)]
         [TestCase("VV", ExpectedResult = 90)]
         [TestCase("VVV", ExpectedResult = 130)]
+        [TestCase("G", ExpectedResult = 20)]
+        [TestCase("g", ExpectedResult = -1)]
+        [TestCase("I", ExpectedResult = 35)]
+        [TestCase("J", ExpectedResult = 60)]
+        [TestCase("L", ExpectedResult = 90)]
+        [TestCase("M", ExpectedResult = 15)]
+        [TestCase("O", ExpectedResult = 10)]
+        [TestCase("S", ExpectedResult = 30)]
+        [TestCase("T", ExpectedResult = 20)]
+        [TestCase("W", ExpectedResult = 20)]
+        [TestCase("X", ExpectedResult = 90)]
+        [TestCase("Y", ExpectedResult = 10)]
+        [TestCase("Z", ExpectedResult = 50)]
         public int ComputeCheckoutTotal(string skus)
         {
             return CheckoutSolution.Checkout(skus);
