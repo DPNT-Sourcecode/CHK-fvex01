@@ -6,7 +6,7 @@ namespace BeFaster.App.Solutions
 {
     public static class CheckoutSolution
     {
-        private static List<char> _allowedCharacters = new List<char> { 'A', 'B', 'C', 'D' };
+        private static List<char> _allowedCharacters = new List<char> { 'A', 'B', 'C', 'D', 'E' };
         
         public static int Checkout(string skus)
         {
@@ -50,8 +50,14 @@ namespace BeFaster.App.Solutions
 
             int GetADiscount()
             {
-                var d = countDouble / 3.0;
-                return (int)Math.Floor(d) * 20;
+                var dividedBy5 = countDouble / 5.0;
+                var discount = (int)Math.Floor(dividedBy5) * 50;
+                var remaining = countDouble - (int)Math.Floor(dividedBy5) * 5;
+
+                var dividedBy3 = remaining / 3.0;
+                discount += (int)Math.Floor(dividedBy3) * 20;
+
+                return discount;
             }
 
             int GetBDiscount()
