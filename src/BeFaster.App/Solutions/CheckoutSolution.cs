@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeFaster.App.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,17 +13,20 @@ namespace BeFaster.App.Solutions
         {
             var chars = skus
                 .ToCharArray()
-                .GroupBy(c => c, (key, g) => new { sku = key, count = g.Count() });
+                .GroupBy(c => c, (key, g) => new ItemOrder() { Sku = key, Count = g.Count() });
 
             if(chars.Any(c => !_allowedCharacters.Contains(c.sku)))
             {
                 return -1;
             }
 
-            var EItems = chars.FirstOrDefault(g => g.sku.Equals('E'));
+            var numberOfEItems = chars.FirstOrDefault(g => g.sku.Equals('E')).count;
+            var numberOfFreeBItems = numberOfEItems / 2;
+            var currentBCount = chars.FirstOrDefault(g => g.sku.Equals('B')).count;
+            chars.FirstOrDefault(g => g.sku.Equals('B')).count = Math.Max(0, currentBCount - numberOfFreeBItems);
 
-            var total = EItems != null ? SumItemPrices(EItems.sku, EItems.count) : 0;
-            foreach (var group in chars.Where(g => !g.sku.Equals('E')))
+            var total = 0;
+            foreach (var group in chars)
             {
                 total += SumItemPrices(group.sku, group.count);
             }

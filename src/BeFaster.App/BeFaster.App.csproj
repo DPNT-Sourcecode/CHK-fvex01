@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ItemOrder.cs" />
     <Compile Include="SendCommandToServer.cs" />
     <Compile Include="Solutions\CheckoutSolution.cs" />
     <Compile Include="Solutions\FizzBuzzSolution.cs" />
