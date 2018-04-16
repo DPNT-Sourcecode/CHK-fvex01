@@ -15,13 +15,14 @@ namespace BeFaster.App.Solutions
                 total += SumItemPrices(group.sku, group.count);
             }
 
-            return 0;
+            return total;
         }
 
         private static int SumItemPrices(char sku, int count)
         {
             var priceDictionary = GetPrices();
-            return count * priceDictionary[sku] - Discount(sku, count);
+            var discount = Discount(sku, count);
+            return count * priceDictionary[sku] - discount;
         }
 
         private static int Discount(char sku, int count)
@@ -29,12 +30,11 @@ namespace BeFaster.App.Solutions
             switch (sku)
             {
                 case 'A':
-                    return 20 * Math.Floor(count % 3);
-                    break;
+                    return GetADiscount();
                 case 'B':
-                    return 20;
-                    break;
-
+                    return GetBDiscount();
+                default:
+                    return 0;
             }
 
             int GetADiscount()
