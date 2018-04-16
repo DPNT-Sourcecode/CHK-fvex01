@@ -15,20 +15,23 @@ namespace BeFaster.App.Solutions
                 .ToCharArray()
                 .GroupBy(c => c, (key, g) => new ItemOrder() { Sku = key, Count = g.Count() });
 
-            if(chars.Any(c => !_allowedCharacters.Contains(c.sku)))
+            if(chars.Any(c => !_allowedCharacters.Contains(c.Sku)))
             {
                 return -1;
             }
 
-            var numberOfEItems = chars.FirstOrDefault(g => g.sku.Equals('E')).count;
-            var numberOfFreeBItems = numberOfEItems / 2;
-            var currentBCount = chars.FirstOrDefault(g => g.sku.Equals('B')).count;
-            chars.FirstOrDefault(g => g.sku.Equals('B')).count = Math.Max(0, currentBCount - numberOfFreeBItems);
+            var numberOfEItems = chars.FirstOrDefault(g => g.Sku.Equals('E'))?.Count ?? 0;
+            if(numberOfEItems > 0)
+            {
+                var numberOfFreeBItems = numberOfEItems / 2;
+                var currentBCount = chars.FirstOrDefault(g => g.Sku.Equals('B')).Count;
+                chars.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, currentBCount - numberOfFreeBItems);
+            }
 
             var total = 0;
             foreach (var group in chars)
             {
-                total += SumItemPrices(group.sku, group.count);
+                total += SumItemPrices(group.Sku, group.Count);
             }
 
             return total;
