@@ -22,9 +22,7 @@ namespace BeFaster.App.Models
             RemoveFreeItems('N', 3, 'M');
             RemoveFreeItems('R', 3, 'Q');
 
-
-
-            var total = 0;
+            var total = TakeOutBundles();
 
             foreach (var group in Orders)
             {
@@ -32,6 +30,35 @@ namespace BeFaster.App.Models
             }
 
             return total;
+        }
+
+        private int TakeOutBundles()
+        {
+            return TakeOutBundle("ZYTSX", 3, 45);
+        }
+
+        private int TakeOutBundle(string bundleSkus, int toQualify, int pricePerBundle)
+        {
+            var price = 0;
+            var removed = 0;
+            var bundleSkuArray = bundleSkus.ToCharArray().ToList();
+            foreach(var sku in bundleSkuArray)
+            {
+                if(Orders.FirstOrDefault(o => o.Sku.Equals(sku)) is ItemOrder order)
+                {
+                    while(order.Count + removed + Orders.Where(o => bundleSkuArray.Contains(o.Sku)).Select(o => o.Count).Sum() >= toQualify)
+                    {
+                        var amountToRemove = Math.Min(toQualify, order.Count);
+                        order.Count -= amountToRemove;
+                        removed = (removed + amountToRemove) % toQualify;
+                        if(removed == 0)
+                        {
+                            price += pricePerBundle;
+                        }
+                    }
+                }
+            }
+            return price;
         }
 
         private void RemoveFreeItems(char paidItem, int quantityOfPaidItems, char freeItem)
