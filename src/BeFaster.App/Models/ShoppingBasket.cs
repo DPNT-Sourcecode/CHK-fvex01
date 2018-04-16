@@ -18,7 +18,9 @@ namespace BeFaster.App.Models
 
         public int CalculateTotalPrice()
         {
-            RemoveFreeItems();
+            RemoveFreeItems('E', 2, 'B');
+            RemoveFreeItems('N', 3, 'M');
+            RemoveFreeItems('R', 3, 'Q');
 
             var total = 0;
 
@@ -30,17 +32,17 @@ namespace BeFaster.App.Models
             return total;
         }
 
-        private void RemoveFreeItems()
+        private void RemoveFreeItems(char paidItem, int quantityOfPaidItems, char freeItem)
         {
-            var numberOfEItems = Orders.FirstOrDefault(g => g.Sku.Equals('E'))?.Count ?? 0;
-            if (numberOfEItems > 0)
+            var numberOfPaidItems = Orders.FirstOrDefault(g => g.Sku.Equals(paidItem))?.Count ?? 0;
+            if (numberOfPaidItems > 0)
             {
-                var numberOfFreeBItems = numberOfEItems / 2;
-                var currentBCount = Orders.FirstOrDefault(g => g.Sku.Equals('B'))?.Count ?? 0;
-                if (currentBCount > 0)
+                var numberOfFreeItems = numberOfPaidItems / quantityOfPaidItems;
+                var currentFreeCount = Orders.FirstOrDefault(g => g.Sku.Equals(freeItem))?.Count ?? 0;
+                if (currentFreeCount > 0)
                 {
-                    var DiscountedBItems = currentBCount - numberOfFreeBItems;
-                    Orders.FirstOrDefault(g => g.Sku.Equals('B')).Count = Math.Max(0, DiscountedBItems);
+                    var discountedFreeItems = currentFreeCount - numberOfFreeItems;
+                    Orders.FirstOrDefault(g => g.Sku.Equals(freeItem)).Count = Math.Max(0, discountedFreeItems);
                 }
             }
         }
