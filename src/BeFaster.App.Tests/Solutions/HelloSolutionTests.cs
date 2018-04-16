@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using BeFaster.App.Solutions;
 
 namespace BeFaster.App.Tests.Solutions
 {
-    class HelloSolutionTests
-    {
-    }
+    [TestFixture]
+        public class HelloSolutionTests
+        {
+            [TestCase("hey", ExpectedResult = "Hello World!")]
+            public string ComputeSum(string x)
+            {
+                return HelloSolution.Hello(x);
+            }
+        }
 }
